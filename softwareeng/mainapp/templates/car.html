@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cars</title>
+</head>
+<body>
+    <h1>Car Listings</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        {% for car in cars %}
+        <tr>
+            <td>{{ car.ad_Id }}</td>
+            <td>{{ car.ad_date }}</td>
+            <td>{{ car.brand }}</td>
+            <td>{{ car.model }}</td>
+            <td>{{ car.ad_price }}</td>
+            <td><a href="{{ car.ad_url }}">View Ad</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
