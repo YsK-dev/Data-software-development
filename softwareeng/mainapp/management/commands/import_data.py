@@ -1,4 +1,3 @@
-# FILE: your_app/management/commands/import_data.py
 import csv
 from django.core.management.base import BaseCommand # type: ignore
 from mainapp.models import Car, Football, Audio
