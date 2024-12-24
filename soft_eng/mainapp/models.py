@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models # type: ignore
 
 class Car(models.Model):
     ad_Id = models.IntegerField()

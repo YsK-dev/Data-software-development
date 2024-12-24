@@ -1,7 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render # type: ignore
 from .models import Car, FootballGame, FootballPlayer
 
-from django.http import HttpResponse
 
 def home(request):
     return render(request, 'home.html')
