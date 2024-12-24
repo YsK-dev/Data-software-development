@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car List</title>
+</head>
+<body>
+    <h1>Car List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Ad ID</th>
+                <th>Date</th>
+                <th>Location 1</th>
+                <th>Location 2</th>
+                <th>Brand</th>
+                <th>Series</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Mileage</th>
+                <th>Transmission</th>
+                <th>Fuel Type</th>
+                <th>Body Type</th>
+                <th>Color</th>
+                <th>Engine Capacity</th>
+                <th>Engine Power</th>
+                <th>Drive Type</th>
+                <th>Condition</th>
+                <th>Fuel Consumption</th>
+                <th>Fuel Tank</th>
+                <th>Paint/Replacement</th>
+                <th>Trade In</th>
+                <th>Seller Type</th>
+                <th>Seller Name</th>
+                <th>Price</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for car in cars %}
+            <tr>
+                <td>{{ car.ad_Id }}</td>
+                <td>{{ car.ad_date }}</td>
+                <td>{{ car.ad_loc1 }}</td>
+                <td>{{ car.ad_loc2 }}</td>
+                <td>{{ car.brand }}</td>
+                <td>{{ car.series }}</td>
+                <td>{{ car.model }}</td>
+                <td>{{ car.year }}</td>
+                <td>{{ car.mileage }}</td>
+                <td>{{ car.transmission }}</td>
+                <td>{{ car.fuel_type }}</td>
+                <td>{{ car.body_type }}</td>
+                <td>{{ car.color }}</td>
+                <td>{{ car.engine_capacity }}</td>
+                <td>{{ car.engine_power }}</td>
+                <td>{{ car.drive_type }}</td>
+                <td>{{ car.vehicle_condition }}</td>
+                <td>{{ car.fuel_consumption }}</td>
+                <td>{{ car.fuel_tank }}</td>
+                <td>{{ car.paint_replacement }}</td>
+                <td>{{ car.trade_in }}</td>
+                <td>{{ car.seller_type }}</td>
+                <td>{{ car.seller_name }}</td>
+                <td>{{ car.ad_price }}</td>
+                <td><a href="{{ car.ad_url }}">{{ car.ad_url }}</a></td>
+            </tr>
+            {% endfor %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Football Games</title>
+</head>
+<body>
+    <h1>Football Games</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Week</th>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Home</th>
+                <th>Away</th>
+                <th>xG</th>
+                <th>xG.1</th>
+                <th>Score</th>
+                <th>Season</th>
+                <th>Game ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game in games %}
+            <tr>
+                <td>{{ game.Wk }}</td>
+                <td>{{ game.Day }}</td>
+                <td>{{ game.Date }}</td>
+                <td>{{ game.Time }}</td>
+                <td>{{ game.Home }}</td>
+                <td>{{ game.Away }}</td>
+                <td>{{ game.xG }}</td>
+                <td>{{ game.xG_1 }}</td>
+                <td>{{ game.Score }}</td>
+                <td>{{ game.season }}</td>
+                <td>{{ game.game_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

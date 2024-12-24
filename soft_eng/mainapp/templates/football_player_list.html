@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Football Players</title>
+</head>
+<body>
+    <h1>Football Players</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>Player</th>
+                <th>Number</th>
+                <th>Nation</th>
+                <th>Position</th>
+                <th>Age</th>
+                <th>Minutes</th>
+                <th>Goals</th>
+                <th>Assists</th>
+                <th>PK</th>
+                <th>PK Attempts</th>
+                <th>Shots</th>
+                <th>Shots on Target</th>
+                <th>Yellow Cards</th>
+                <th>Red Cards</th>
+                <th>Touches</th>
+                <th>Tackles</th>
+                <th>Interceptions</th>
+                <th>Blocks</th>
+                <th>xG</th>
+                <th>npxG</th>
+                <th>xAG</th>
+                <th>SCA</th>
+                <th>GCA</th>
+                <th>Cmp_x</th>
+                <th>Att_x</th>
+                <th>Cmp%</th>
+                <th>Progressive Passes</th>
+                <th>Carries</th>
+                <th>Progressive Carries</th>
+                <th>Att_x_alt</th>
+                <th>Successful Dribbles</th>
+                <th>Shots on Target Allowed</th>
+                <th>Goals Allowed</th>
+                <th>Saves</th>
+                <th>Save%</th>
+                <th>PSxG</th>
+                <th>Cmp_y</th>
+                <th>Att_y</th>
+                <th>Cmp% (Goalkeeper)</th>
+                <th>Att GK</th>
+                <th>Throws</th>
+                <th>Launch%</th>
+                <th>Average Length</th>
+                <th>Opportunities</th>
+                <th>Stops</th>
+                <th>Stop%</th>
+                <th>OPA</th>
+                <th>Average Distance</th>
+                <th>Home/Away</th>
+                <th>Game ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in players %}
+            <tr>
+                <td>{{ player.index }}</td>
+                <td>{{ player.Player }}</td>
+                <td>{{ player.number }}</td>
+                <td>{{ player.Nation }}</td>
+                <td>{{ player.Pos }}</td>
+                <td>{{ player.Age }}</td>
+                <td>{{ player.Min }}</td>
+                <td>{{ player.Gls }}</td>
+                <td>{{ player.Ast }}</td>
+                <td>{{ player.PK }}</td>
+                <td>{{ player.PKatt }}</td>
+                <td>{{ player.Sh }}</td>
+                <td>{{ player.SoT }}</td>
+                <td>{{ player.CrdY }}</td>
+                <td>{{ player.CrdR }}</td>
+                <td>{{ player.Touches }}</td>
+                <td>{{ player.Tkl }}</td>
+                <td>{{ player.Int }}</td>
+                <td>{{ player.Blocks }}</td>
+                <td>{{ player.xG }}</td>
+                <td>{{ player.npxG }}</td>
+                <td>{{ player.xAG }}</td>
+                <td>{{ player.SCA }}</td>
+                <td>{{ player.GCA }}</td>
+                <td>{{ player.Cmp_x }}</td>
+                <td>{{ player.Att_x }}</td>
+                <td>{{ player.Cmp_pct_x }}</td>
+                <td>{{ player.PrgP }}</td>
+                <td>{{ player.Carries }}</td>
+                <td>{{ player.PrgC }}</td>
+                <td>{{ player.Att_x_alt }}</td>
+                <td>{{ player.Succ }}</td>
+                <td>{{ player.SoTA }}</td>
+                <td>{{ player.GA }}</td>
+                <td>{{ player.Saves }}</td>
+                <td>{{ player.Save_pct }}</td>
+                <td>{{ player.PSxG }}</td>
+                <td>{{ player.Cmp_y }}</td>
+                <td>{{ player.Att_y }}</td>
+                <td>{{ player.Cmp_pct_y }}</td>
+                <td>{{ player.Att_GK }}</td>
+                <td>{{ player.Thr }}</td>
+                <td>{{ player.Launch_pct }}</td>
+                <td>{{ player.AvgLen }}</td>
+                <td>{{ player.Opp }}</td>
+                <td>{{ player.Stp }}</td>
+                <td>{{ player.Stp_pct }}</td>
+                <td>{{ player.OPA }}</td>
+                <td>{{ player.AvgDist }}</td>
+                <td>{{ player.home }}</td>
+                <td>{{ player.game_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
