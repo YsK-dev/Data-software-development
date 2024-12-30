@@ -1,5 +1,5 @@
 import csv
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand #type: ignore
 from mainapp.models import FootballPlayer
 
 class Command(BaseCommand):
@@ -11,7 +11,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         file_path = options['file_path']
 
-        # Define the mapping between CSV columns and model fields
         field_mapping = {
             'index': 'index',
             'Player': 'Player',
@@ -74,21 +73,17 @@ class Command(BaseCommand):
         with open(file_path, 'r', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                # Create a dictionary of only the fields present in the model
                 model_data = {model_field: row[csv_field] for csv_field, model_field in field_mapping.items() if csv_field in row}
 
-                # Convert data types as needed (e.g., empty strings to None)
                 for field, value in model_data.items():
                     if value == '':
                         model_data[field] = None
 
-                # Create a FootballPlayer object
                 try:
                     entries.append(FootballPlayer(**model_data))
                 except Exception as e:
                     self.stdout.write(f"Error creating entry: {e}. Row: {row}")
 
-        # Bulk create all entries
         FootballPlayer.objects.bulk_create(entries, ignore_conflicts=True)
 
         self.stdout.write(f"Successfully imported {len(entries)} records.")
