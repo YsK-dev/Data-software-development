@@ -1,11 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Car List</title>
-</head>
-<body>
-    <h1>Car List</h1>
-    <table border="1">
+{% extends 'layout.html' %}
+
+{% block title %}Car List{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Car List</h1>
+
+<!-- Brand Dropdown Filter -->
+<form method="get" class="filter-form">
+    <label for="brand" class="filter-label">Filter by Brand:</label>
+    <select name="brand" id="brand" class="dropdown" onchange="this.form.submit()">
+        <option value="">All Brands</option>
+        {% for brand in brands %}
+        <option value="{{ brand }}" {% if request.GET.brand == brand %}selected{% endif %}>{{ brand }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<div class="table-container">
+    <table class="styled-table">
         <thead>
             <tr>
                 <th>Ad ID</th>
@@ -62,6 +74,33 @@
                 <td>{{ car.seller_type }}</td>
                 <td>{{ car.seller_name }}</td>
                 <td>{{ car.ad_price }}</td>
-                <td><a href="{{ car.ad_url }}">{{ car.ad_url }}</a></td>
+                <td><a href="{{ car.ad_url }}" target="_blank" class="link">{{ car.ad_url }}</a></td>
             </tr>
             {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    <span class="page-info">Page {{ cars.number }} of {{ cars.paginator.num_pages }}</span>
+    <div class="page-links">
+        {% if cars.has_previous %}
+        <a href="?page=1">&laquo; First</a>
+        <a href="?page={{ cars.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in cars.paginator.page_range %}
+            {% if num == cars.number %}
+            <span class="current">{{ num }}</span>
+            {% elif num >= cars.number|add:-2 and num <= cars.number|add:2 %}
+            <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if cars.has_next %}
+        <a href="?page={{ cars.next_page_number }}">Next</a>
+        <a href="?page={{ cars.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
