@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Football Games</title>
-</head>
-<body>
-    <h1>Football Games</h1>
-    <table border="1">
+{% extends 'layout.html' %}
+
+{% block title %}Football Game List{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Football Games</h1>
+<div class="table-container">
+    <table class="styled-table">
         <thead>
             <tr>
                 <th>Week</th>
@@ -39,5 +39,28 @@
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+</div>
+
+<div class="pagination">
+    <span class="page-info">Page {{ games.number }} of {{ games.paginator.num_pages }}</span>
+    <div class="page-links">
+        {% if games.has_previous %}
+        <a href="?page=1">&laquo; First</a>
+        <a href="?page={{ games.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in games.paginator.page_range %}
+            {% if num == games.number %}
+            <span class="current">{{ num }}</span>
+            {% elif num >= games.number|add:-2 and num <= games.number|add:2 %}
+            <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if games.has_next %}
+        <a href="?page={{ games.next_page_number }}">Next</a>
+        <a href="?page={{ games.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
