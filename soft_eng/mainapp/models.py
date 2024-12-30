@@ -2,51 +2,51 @@ from django.db import models  # type: ignore
 
 class Car(models.Model):
     ad_Id = models.IntegerField()
-    ad_date = models.DateField()
+    ad_date = models.CharField(max_length=255)
     ad_loc1 = models.CharField(max_length=255)
     ad_loc2 = models.CharField(max_length=255)
     brand = models.CharField(max_length=255)
     series = models.CharField(max_length=255)
     model = models.CharField(max_length=255)
-    year = models.IntegerField()
-    mileage = models.IntegerField()
+    year = models.CharField(max_length=255)
+    mileage = models.CharField(max_length=255)
     transmission = models.CharField(max_length=255)
     fuel_type = models.CharField(max_length=255)
     body_type = models.CharField(max_length=255)
     color = models.CharField(max_length=255)
-    engine_capacity = models.FloatField()
-    engine_power = models.FloatField()
+    engine_capacity = models.CharField(max_length=255)
+    engine_power = models.CharField(max_length=255)
     drive_type = models.CharField(max_length=255)
     vehicle_condition = models.CharField(max_length=255)
-    fuel_consumption = models.FloatField()
-    fuel_tank = models.FloatField()
+    fuel_consumption = models.CharField(max_length=255)
+    fuel_tank = models.CharField(max_length=255)
     paint_replacement = models.CharField(max_length=255)
-    trade_in = models.BooleanField()
+    trade_in = models.CharField(max_length=255)
     seller_type = models.CharField(max_length=255)
     seller_name = models.CharField(max_length=255)
-    ad_price = models.FloatField()
+    ad_price = models.CharField(max_length=255)
     ad_url = models.URLField()
 
 class FootballGame(models.Model):
-    Wk = models.FloatField(null=True)  # Changed to float to match CSV type
+    Wk = models.FloatField(null=True) 
     Day = models.CharField(max_length=255)
-    Date = models.CharField(max_length=255)  # Adjusted to CharField to match CSV type
-    Time = models.CharField(max_length=255)  # Adjusted to CharField to match CSV type
+    Date = models.CharField(max_length=255)  
+    Time = models.CharField(max_length=255) 
     Home = models.CharField(max_length=255)
     Away = models.CharField(max_length=255)
     Score = models.CharField(max_length=255)
     xG = models.FloatField()
     xG_1 = models.FloatField()
     season = models.CharField(max_length=255)
-    game_id = models.FloatField(null=True)  # Changed to float to match CSV type
+    game_id = models.FloatField(null=True) 
 
 class FootballPlayer(models.Model):
     index = models.IntegerField(unique=True)
     Player = models.CharField(max_length=255)
-    number = models.FloatField(null=True)  # Changed to float to match CSV type
+    number = models.FloatField(null=True)  
     Nation = models.CharField(max_length=255)
     Pos = models.CharField(max_length=255)
-    Age = models.CharField(max_length=255, null=True)  # Adjusted to CharField to match CSV type
+    Age = models.CharField(max_length=255, null=True)  
     Min = models.FloatField(null=True)
     Gls = models.FloatField(null=True)
     Ast = models.FloatField(null=True)
@@ -94,4 +94,4 @@ class FootballPlayer(models.Model):
     Cmp = models.FloatField(null=True)
     Att = models.FloatField(null=True)
     Cmp_pct = models.FloatField(null=True)
-    Att_alt = models.FloatField(null=True)  # For columns like "Att.1"
+    Att_alt = models.FloatField(null=True)  
