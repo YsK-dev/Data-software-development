@@ -1,6 +1,8 @@
 from django.contrib import admin #type: ignore
 
 from .models import FootballPlayer
+from .models import FootballGame
+from .models import Car
 
 
 
@@ -10,4 +12,20 @@ class FootballPlayerAdmin(admin.ModelAdmin):
     search_fields = ['Player', 'Nation', 'Pos']
     list_filter = ['Nation', 'Pos']
     ordering = ['Player']
+    list_per_page = 20
+
+@admin.register(FootballGame)
+class FootballGame(admin.ModelAdmin):
+    list_display = ('Home', 'game_id')  
+    search_fields = ['Home', 'game_id']  
+    list_filter = ['Home']  
+    ordering = ['Home'] 
+    list_per_page = 20
+
+@admin.register(Car)
+class CarAdmin(admin.ModelAdmin):
+    list_display = ('brand', 'model', 'year')  
+    search_fields = ['brand', 'model'] 
+    list_filter = ['brand', 'model']
+    ordering = ['brand'] 
     list_per_page = 20
