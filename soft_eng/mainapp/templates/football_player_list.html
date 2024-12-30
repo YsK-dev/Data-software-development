@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Football Players</title>
-</head>
-<body>
-    <h1>Football Players</h1>
-    <table border="1">
+{% extends 'layout.html' %}
+
+{% block title %}Football Player List{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Football Players</h1>
+<div class="table-container">
+    <table class="styled-table">
         <thead>
             <tr>
                 <th>Index</th>
@@ -119,5 +119,65 @@
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+</div>
+
+<div class="pagination">
+    <span class="page-info">Page {{ players.number }} of {{ players.paginator.num_pages }}</span>
+    <div class="page-links">
+        {% if players.has_previous %}
+        <a href="?page=1">&laquo; First</a>
+        <a href="?page={{ players.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in players.paginator.page_range %}
+            {% if num == players.number %}
+            <span class="current">{{ num }}</span>
+            {% elif num >= players.number|add:-2 and num <= players.number|add:2 %}
+            <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if players.has_next %}
+        <a href="?page={{ players.next_page_number }}">Next</a>
+        <a href="?page={{ players.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.page-info {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.page-links a, .page-links span {
+    margin: 0 5px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #007bff;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.page-links a:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.page-links .current {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    border-color: #007bff;
+}
+</style>
+{% endblock %}
