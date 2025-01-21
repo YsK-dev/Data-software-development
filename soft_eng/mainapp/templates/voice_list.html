@@ -1,0 +1,178 @@
+{% extends 'layout.html' %}
+
+{% block title %}Voice Recordings - Dashboard{% endblock %}
+
+{% block content %}
+<div class="voice-list-container">
+    <h1>Voice Recordings</h1>
+    <p>Explore and manage your voice recordings below:</p>
+
+    <div class="table-container">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Audio</th>
+                    <th>Uploaded At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for voice in voices %}
+                <tr>
+                    <td>{{ voice.name }}</td>
+                    <td>
+                        <audio controls>
+                            <source src="{{ voice.audio_file.url }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </td>
+                    <td>{{ voice.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No voice recordings found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Record and Upload Voice</h2>
+    <div class="upload-section">
+        <button id="startRecording" class="btn">Start Recording</button>
+        <button id="stopRecording" class="btn" disabled>Stop Recording</button>
+
+        <form id="uploadForm" method="POST" enctype="multipart/form-data" class="form-container">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Enter voice name" class="input-field" required>
+            <input type="file" id="audioFile" name="audio_file" accept="audio/*" style="display: none;">
+            <button type="submit" class="btn">Upload Voice</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .voice-list-container {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .table-container {
+        margin: 20px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #fff;
+        overflow-x: auto;
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+        background-color: #ffffff;
+        border-radius: 8px;
+    }
+
+    .styled-table thead tr {
+        background-color: #007bff;
+        color: #ffffff;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .upload-section {
+        margin-top: 30px;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .input-field {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .btn:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+</style>
+
+<script>
+    let mediaRecorder;
+    let audioChunks = [];
+
+    const startButton = document.getElementById('startRecording');
+    const stopButton = document.getElementById('stopRecording');
+    const audioFileInput = document.getElementById('audioFile');
+
+    startButton.addEventListener('click', async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.start();
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = event => {
+            audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/mpeg' });
+            const file = new File([audioBlob], 'recording.mp3', { type: 'audio/mpeg' });
+
+            // Update the hidden file input with the recorded audio
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            audioFileInput.files = dataTransfer.files;
+
+            alert('Recording finished and ready for upload.');
+        };
+
+        startButton.disabled = true;
+        stopButton.disabled = false;
+    });
+
+    stopButton.addEventListener('click', () => {
+        mediaRecorder.stop();
+        startButton.disabled = false;
+        stopButton.disabled = true;
+    });
+</script>
+{% endblock %}

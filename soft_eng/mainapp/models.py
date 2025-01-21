@@ -95,3 +95,13 @@ class FootballPlayer(models.Model):
     Att = models.FloatField(null=True)
     Cmp_pct = models.FloatField(null=True)
     Att_alt = models.FloatField(null=True)  
+
+
+
+class Voice(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    audio_file = models.FileField(upload_to='voices/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name or f"Voice {self.id}"

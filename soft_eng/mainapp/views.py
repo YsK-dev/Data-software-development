@@ -1,9 +1,10 @@
-from django.shortcuts import render # type: ignore
+from django.shortcuts import render , redirect# type: ignore
 from django.core.paginator import Paginator # type: ignore
-from .models import Car, FootballGame, FootballPlayer
+from .models import Car, FootballGame, FootballPlayer, Voice
 
 def home(request):
     return render(request, 'home.html')
+
 def car_list(request):
     brand_filter = request.GET.get('brand', '') 
     cars = Car.objects.all()
@@ -33,3 +34,17 @@ def football_player_list(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'football_player_list.html', {'players': page_obj})
+
+
+def voice_list(request):
+    if request.method == "POST" and request.FILES.get("audio_file"):
+        audio_file = request.FILES["audio_file"]
+        name = request.POST.get("name", "")
+        Voice.objects.create(name=name, audio_file=audio_file)
+        return redirect('voice_list') 
+
+    voices = Voice.objects.all().order_by('-created_at')
+    paginator = Paginator(voices, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'voice_list.html', {'voices': page_obj})
